@@ -1487,7 +1487,6 @@ Data</h1>
 </div>
 
 
-<pre class="r"><code>options(repos = c(CRAN = &quot;https://cran.rstudio.com&quot;))</code></pre>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>When working with census data using the <strong>tidycensus</strong>
@@ -1501,7 +1500,7 @@ straightforward.</p>
 <strong>tidyr</strong> package is a tool to reshape data from long to
 wide format. This tutorial will guide you through using
 <code>pivot_wider()</code> in the context of census data frames pulled
-from the use of <code>tidycensus()</code> functions like
+from the use of <strong>tidycensus</strong> functions like
 <code>get_decennial()</code>.</p>
 </div>
 <div id="prerequisites" class="section level1">
@@ -1509,39 +1508,14 @@ from the use of <code>tidycensus()</code> functions like
 <p>Before we begin, ensure you have the necessary packages installed and
 loaded:</p>
 <pre class="r"><code># Install packages 
-install.packages(&quot;tidycensus&quot;)</code></pre>
-<pre><code>## Installing package into &#39;C:/Users/13143/AppData/Local/R/win-library/4.4&#39;
-## (as &#39;lib&#39; is unspecified)</code></pre>
-<pre><code>## package &#39;tidycensus&#39; successfully unpacked and MD5 sums checked
-## 
-## The downloaded binary packages are in
-##  C:\Users\13143\AppData\Local\Temp\Rtmp2lczO8\downloaded_packages</code></pre>
-<pre class="r"><code>install.packages(&quot;tidyr&quot;)  # Includes tidyr</code></pre>
-<pre><code>## Installing package into &#39;C:/Users/13143/AppData/Local/R/win-library/4.4&#39;
-## (as &#39;lib&#39; is unspecified)</code></pre>
-<pre><code>## package &#39;tidyr&#39; successfully unpacked and MD5 sums checked</code></pre>
-<pre><code>## Warning: cannot remove prior installation of package &#39;tidyr&#39;</code></pre>
-<pre><code>## Warning in file.copy(savedcopy, lib, recursive = TRUE): problem copying
-## C:\Users\13143\AppData\Local\R\win-library\4.4\00LOCK\tidyr\libs\x64\tidyr.dll
-## to C:\Users\13143\AppData\Local\R\win-library\4.4\tidyr\libs\x64\tidyr.dll:
-## Permission denied</code></pre>
-<pre><code>## Warning: restored &#39;tidyr&#39;</code></pre>
-<pre><code>## 
-## The downloaded binary packages are in
-##  C:\Users\13143\AppData\Local\Temp\Rtmp2lczO8\downloaded_packages</code></pre>
-<pre class="r"><code>install.packages(&quot;tigris&quot;)</code></pre>
-<pre><code>## Installing package into &#39;C:/Users/13143/AppData/Local/R/win-library/4.4&#39;
-## (as &#39;lib&#39; is unspecified)</code></pre>
-<pre><code>## package &#39;tigris&#39; successfully unpacked and MD5 sums checked
-## 
-## The downloaded binary packages are in
-##  C:\Users\13143\AppData\Local\Temp\Rtmp2lczO8\downloaded_packages</code></pre>
-<pre class="r"><code># Load the libraries
+install.packages(&quot;tidycensus&quot;)
+install.packages(&quot;tidyr&quot;)  # Includes tidyr
+install.packages(&quot;tigris&quot;)
+
+# Load the libraries
 library(tidycensus)
 library(tidyr)
 library(tigris)</code></pre>
-<pre><code>## To enable caching of data, set `options(tigris_use_cache = TRUE)`
-## in your R script or .Rprofile.</code></pre>
 </div>
 <div id="step-1-pull-census-data-using-tidycensus" class="section level1">
 <h1>Step 1: Pull Census Data Using <strong>tidycensus</strong></h1>
@@ -1570,15 +1544,6 @@ total_population &lt;- get_decennial(
   year = 2020, 
   geometry = TRUE
 )</code></pre>
-<pre><code>## Getting data from the 2020 decennial Census</code></pre>
-<pre><code>## Downloading feature geometry from the Census website.  To cache shapefiles for use in future sessions, set `options(tigris_use_cache = TRUE)`.</code></pre>
-<pre><code>## Using the PL 94-171 Redistricting Data Summary File</code></pre>
-<pre><code>##   |                                                                              |                                                                      |   0%  |                                                                              |=                                                                     |   1%  |                                                                              |=                                                                     |   2%  |                                                                              |==                                                                    |   3%  |                                                                              |===                                                                   |   4%  |                                                                              |===                                                                   |   5%  |                                                                              |====                                                                  |   6%  |                                                                              |=====                                                                 |   7%  |                                                                              |======                                                                |   8%  |                                                                              |=======                                                               |   9%  |                                                                              |========                                                              |  11%  |                                                                              |========                                                              |  12%  |                                                                              |=========                                                             |  13%  |                                                                              |===========                                                           |  16%  |                                                                              |============                                                          |  17%  |                                                                              |==============                                                        |  19%  |                                                                              |===============                                                       |  21%  |                                                                              |================                                                      |  23%  |                                                                              |=================                                                     |  25%  |                                                                              |===================                                                   |  27%  |                                                                              |====================                                                  |  28%  |                                                                              |===========================                                           |  39%  |                                                                              |=============================                                         |  41%  |                                                                              |===============================                                       |  44%  |                                                                              |================================                                      |  46%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================                                  |  51%  |                                                                              |====================================                                  |  52%  |                                                                              |=====================================                                 |  53%  |                                                                              |======================================                                |  54%  |                                                                              |=======================================                               |  55%  |                                                                              |=======================================                               |  56%  |                                                                              |========================================                              |  57%  |                                                                              |================================================                      |  69%  |                                                                              |==================================================                    |  71%  |                                                                              |========================================================              |  79%  |                                                                              |===============================================================       |  91%  |                                                                              |================================================================      |  92%  |                                                                              |=================================================================     |  93%  |                                                                              |==================================================================    |  94%  |                                                                              |===================================================================   |  95%  |                                                                              |====================================================================  |  97%  |                                                                              |===================================================================== |  98%  |                                                                              |======================================================================|  99%  |                                                                              |======================================================================| 100%</code></pre>
-<pre><code>## Note: 2020 decennial Census data use differential privacy, a technique that
-## introduces errors into data to preserve respondent confidentiality.
-## ℹ Small counts should be interpreted with caution.
-## ℹ See https://www.census.gov/library/fact-sheets/2021/protecting-the-confidentiality-of-the-2020-census-redistricting-data.html for additional guidance.
-## This message is displayed once per session.</code></pre>
 <pre class="r"><code># View the data
 head(total_population, 10)</code></pre>
 <pre><code>## Simple feature collection with 10 features and 4 fields
@@ -1613,9 +1578,8 @@ total_population_wide &lt;- total_population %&gt;%
   pivot_wider(
     names_from = variable,
     values_from = value
-  )
-
-# View the transformed data
+  )</code></pre>
+<pre class="r"><code># View the transformed data
 head(total_population_wide, 10)</code></pre>
 <pre><code>## Simple feature collection with 10 features and 5 fields
 ## Geometry type: MULTIPOLYGON
